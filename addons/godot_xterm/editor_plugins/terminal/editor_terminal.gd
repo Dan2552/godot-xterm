@@ -1,11 +1,11 @@
-tool
+@tool
 extends "../../terminal.gd"
 
 signal exited(exit_code, signum)
 
 var editor_settings: EditorSettings
 
-onready var pty = $PTY
+@onready var pty = $PTY
 
 
 # Sets terminal colors according to a dictionary that maps terminal color names

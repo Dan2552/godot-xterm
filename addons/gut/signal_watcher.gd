@@ -25,7 +25,7 @@
 # ##############################################################################
 
 # Some arbitrary string that should never show up by accident.  If it does, then
-# shame on  you.
+# shame on you.
 const ARG_NOT_SET = "_*_argument_*_is_*_not_set_*_"
 
 # This hash holds the objects that are being watched, the signals that are being
@@ -64,7 +64,7 @@ func _add_watched_signal(obj, name):
 		_watched_signals[obj] = {name: []}
 	else:
 		_watched_signals[obj][name] = []
-	obj.connect(name, self, "_on_watched_signal", [obj, name])
+	obj.connect(name,Callable(self,"_on_watched_signal").bind(obj, name))
 
 
 # This handles all the signals that are watched.  It supports up to 9 parameters
@@ -94,10 +94,10 @@ func _on_watched_signal(
 	# strip off any unused vars.
 	var idx = args.size() - 1
 	while str(args[idx]) == ARG_NOT_SET:
-		args.remove(idx)
+		args.remove_at(idx)
 		idx -= 1
 
-	# retrieve object and signal name from the array and remove them.  These
+	# retrieve object and signal name from the array and remove_at them.  These
 	# will always be at the end since they are added when the connect happens.
 	var signal_name = args[args.size() - 1]
 	args.pop_back()
@@ -172,7 +172,7 @@ func clear():
 	for obj in _watched_signals:
 		if _utils.is_not_freed(obj):
 			for signal_name in _watched_signals[obj]:
-				obj.disconnect(signal_name, self, "_on_watched_signal")
+				obj.disconnect(signal_name,Callable(self,"_on_watched_signal"))
 	_watched_signals.clear()
 
 

@@ -25,7 +25,7 @@ var _parameter_override_only = true
 const NOT_SET = "|_1_this_is_not_set_1_|"
 
 
-func _init(target = null, method = null, subpath = null):
+func _init(target = null,method = null,subpath = null):
 	stub_target = target
 	stub_method = method
 	target_subpath = subpath
@@ -64,7 +64,7 @@ func when_passed(
 	var idx = 0
 	while idx < parameters.size():
 		if str(parameters[idx]) == NOT_SET:
-			parameters.remove(idx)
+			parameters.remove_at(idx)
 		else:
 			idx += 1
 	return self
